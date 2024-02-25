@@ -24,12 +24,17 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   title: "E-Commerce",
   description: "An e-commerce app where people can buy things online",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${poppins.variable} ${spaceGrotesk.variable}`}>
+      <body
+        className={`${inter.variable} ${poppins.variable} ${spaceGrotesk.variable}`}
+      >
         <AuthProvider>
           <Navbar />
           {children}
