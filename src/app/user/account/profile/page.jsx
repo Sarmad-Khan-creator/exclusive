@@ -8,8 +8,6 @@ const Profile = async () => {
   const session = await getServerSession(authOptions);
   const user = await findUser({ email: session?.user.email });
 
-  console.log(user.name);
-
   return (
     <section className="flex flex-col gap-7">
       <h2 className="text-red-400 font-bold text-lg">Edit your Profile</h2>
