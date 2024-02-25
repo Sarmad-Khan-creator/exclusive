@@ -164,8 +164,6 @@ export const getTotalNumberOfReviews = async (productId) => {
       { $project: { _id: 0, numberOfReviews: { $size: "$numberOfReviews" } } },
     ]);
 
-    // console.log(totalNumberOfReviews);
-
     return totalNumberOfReviews;
   } catch (error) {
     throw error;
