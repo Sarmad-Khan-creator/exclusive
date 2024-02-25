@@ -45,7 +45,7 @@ export default async function Home() {
       <section className="px-24 w-full mt-28 mb-16">
         <h3 className="font-semibold text-lg">Our Products</h3>
         <OurProducts products={products} user={user} />
-        <div className="flex justify-end mt-18">
+        <div className="flex justify-end mt-20">
           <Link
             href="/product/allProducts"
             className="bg-blue-600 text-white hover:bg-blue-400 hover:text-white px-7 py-3 rounded-md"
