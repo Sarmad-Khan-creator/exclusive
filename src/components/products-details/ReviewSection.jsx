@@ -54,7 +54,7 @@ const ReviewSection = ({ author, productId }) => {
     };
 
     getRating();
-  }, []);
+  }, [author, productId]);
 
   useEffect(() => {
     const getReviews = async () => {
