@@ -1,8 +1,30 @@
 "use client";
 import ProductCard from "@/components/shared/ProductCard";
+import { getDiscountedProducts } from "@/lib/server-actions/product.action";
+import { findUser } from "@/lib/server-actions/user.action";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
-const DiscountedProducts = ({ discountedProducts, user }) => {
+const DiscountedProducts = () => {
+  const { data: session } = useSession();
+  const [discountedProducts, setDiscountedProducts] = useState();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const discountedProducts = async () => {
+      const products = await getDiscountedProducts();
+      setDiscountedProducts(products);
+    };
+
+    const getUser = async () => {
+      const gettedUser = await findUser({ email: session?.user.email });
+      setUser(gettedUser);
+    };
+
+    discountedProducts();
+    getUser();
+  }, [session?.user.email]);
   const variants = {
     initial: { opacity: 0, display: "hidden" },
     animate: (i) => ({
@@ -16,7 +38,7 @@ const DiscountedProducts = ({ discountedProducts, user }) => {
   return (
     <motion.div className="flex w-full gap-5 mt-3" variants={variants}>
       {discountedProducts &&
-        discountedProducts.map((discountedProduct, i) => (
+        JSON.parse(discountedProducts).map((discountedProduct, i) => (
           <ProductCard
             key={discountedProduct.title}
             product={discountedProduct}
