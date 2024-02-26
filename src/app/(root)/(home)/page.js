@@ -12,16 +12,36 @@ import { findUser } from "@/lib/server-actions/user.action";
 import OurProducts from "./_components/OurProducts";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  const products = await getNotSaleProducts();
-  const discountedProducts = await getDiscountedProducts();
-  const session = await getServerSession(authOptions);
-  let user;
+export default function Home() {
+  const [products, setProducts] = useState();
+  const [discountedProducts, setDiscountedProducts] = useState();
+  const [user, setUser] = useState();
 
-  if (session) {
-    user = await findUser({ email: session?.user.email });
-  }
+  useEffect(() => {
+    const getOnSaleProducts = async () => {
+      const salesProducts = await getNotSaleProducts();
+      setProducts(JSON.parse(salesProducts));
+    };
+
+    const getDiscountedPro = async () => {
+      const products = await getDiscountedProducts();
+      setDiscountedProducts(products);
+    };
+
+    const getUser = async () => {
+      if (session) {
+        const session = await getServerSession(authOptions);
+        const user = await findUser({ email: session?.user.email });
+        setUser(user);
+      }
+    };
+
+    getOnSaleProducts();
+    getDiscountedPro();
+    getUser();
+  }, []);
 
   return (
     <>
