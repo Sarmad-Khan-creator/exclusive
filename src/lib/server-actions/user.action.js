@@ -109,8 +109,6 @@ export const updatePassword = async (email, data) => {
       return { error: "User not found" };
     }
 
-    console.log(currentPassword, user.password);
-
     const matchPassword = await verifyPassword(currentPassword, user.password);
 
     if (!matchPassword) {

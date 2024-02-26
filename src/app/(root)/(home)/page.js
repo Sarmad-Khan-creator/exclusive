@@ -1,4 +1,4 @@
-import ProductCard from "@/components/shared/ProductCard";
+"use client";
 import {
   getDiscountedProducts,
   getNotSaleProducts,
